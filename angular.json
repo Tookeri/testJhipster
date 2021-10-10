@@ -108,6 +108,7 @@
   },
   "defaultProject": "test-recruitment",
   "cli": {
+    "analytics": false,
     "packageManager": "npm"
   }
 }
