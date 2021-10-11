@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
 
@@ -39,13 +40,24 @@ public class VehiculeResource {
     }
 
     /**
-     * L'utilisateur non connecté peut voir la liste mais pas les commentaires.
      * On ne doit pouvoir accéder aux commentaires seulement si on est connecté.
      * @return
      */
-    @GetMapping(value = "/list/voiture", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Vehicule>> listVoiture() {
-        List<Vehicule> vehiculeList = vehiculeService.getAllVehicule();
+    @Secured({ "ROLE_USER", "ROLE_ADMIN" })
+    @GetMapping(value = "/list/carWithComment", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Vehicule>> listVoitureAvecCommentaire() {
+        List<Vehicule> vehiculeList = vehiculeService.getAllVehiculeWithCommentaire();
+        return ResponseEntity.ok(vehiculeList);
+    }
+
+    /**
+     * L'utilisateur non connecté peut voir la liste mais pas les commentaires.
+     * @return
+     */
+    @Secured("ROLE_ANONYMOUS")
+    @GetMapping(value = "/list/carWithOutComment", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Vehicule>> listVoitureSansCommentaire() {
+        List<Vehicule> vehiculeList = vehiculeService.getAllVehiculeWithOutCommentaire();
         return ResponseEntity.ok(vehiculeList);
     }
 }

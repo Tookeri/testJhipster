@@ -30,11 +30,21 @@ public class VehiculeService {
     }
 
     /**
-     * Récuperer la liste des voitures.
+     * Récuperer la liste des voitures avec les commentaires.
      * @return
      */
-    public List<Vehicule> getAllVehicule() {
+    public List<Vehicule> getAllVehiculeWithCommentaire() {
         return vehiculeRepository.findAll();
+    }
+
+    /**
+     * Récuperer la liste des voitures sans commentaires.
+     * @return
+     */
+    public List<Vehicule> getAllVehiculeWithOutCommentaire() {
+        List<Vehicule> list = vehiculeRepository.findAll();
+        list.stream().forEach(it -> it.setComments(null));
+        return list;
     }
 
     /**
