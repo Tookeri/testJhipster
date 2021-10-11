@@ -6,9 +6,9 @@ import com.kdr.htk.service.dto.AdminUserDTO;
 import com.kdr.htk.service.dto.UserDTO;
 import java.util.*;
 import java.util.stream.Collectors;
+import javax.inject.Named;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapping;
-import org.mapstruct.Named;
 import org.springframework.stereotype.Service;
 
 /**
